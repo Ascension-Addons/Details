@@ -207,6 +207,7 @@ L["STRING_DETACH_DESC"] = "Desagrupar ventanas"
 L["STRING_DISPELLED"] = "Bufos/debufos disipados"
 L["STRING_DODGE"] = "Esquivado"
 L["STRING_DOT"] = " (DoT)"
+L["STRING_HOT"] = " (HoT)"
 L["STRING_DPS"] = "DPS"
 L["STRING_EMPTY_SEGMENT"] = "Segmento vacío"
 --[[Translation missing --]]

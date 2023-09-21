@@ -223,6 +223,15 @@ do
 		end
 	end
 
+		--> overwrite SpellInfo if the spell is a HoT, so Details.GetSpellInfo will return the name modified
+	function _detalhes:SpellIsHot (spellid)
+		local spellName, rank, spellIcon = _GetSpellInfo (spellid)
+		if (spellName) then
+			_rawset (_detalhes.spellcache, spellid, {spellName .. Loc ["STRING_HOT"], rank, spellIcon})
+		else
+			_rawset (_detalhes.spellcache, spellid, {"Unknown HoT Spell? " .. Loc ["STRING_HOT"], rank, [[Interface\InventoryItems\WoWUnknownItem01]]})
+		end
+	end
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --> Cache All Spells
 

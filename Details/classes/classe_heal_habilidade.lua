@@ -15,7 +15,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --> internals
 
-	function habilidade_cura:NovaTabela (id, link)
+	function habilidade_cura:NovaTabela (id, link, token)
 
 		local _newHealSpell = {
 
@@ -46,7 +46,9 @@
 			targets_overheal = {},
 			targets_absorbs = {}
 		}
-
+		if token == "SPELL_PERIODIC_HEAL" then
+			_detalhes:SpellIsHot(id)
+		end
 		return _newHealSpell
 	end
 

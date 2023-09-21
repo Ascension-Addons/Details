@@ -257,6 +257,27 @@ end
 --	/run local f=CreateFrame("Frame");f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");f:SetScript("OnEvent",function(self, ...) local a = select(6, ...);if(a=="<chr name>")then print(...) end end)
 --	/run local f=CreateFrame("Frame");f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");f:SetScript("OnEvent",function(self, ...) local a = select(3, ...);print(a);if(a=="SPELL_CAST_SUCCESS")then print(...) end end)
 
+local firstRank
+local function hasValue(tbl, value)
+	for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
+		if v == value then 
+			return true -- Found in this or nested table
+		end
+	end
+	return false -- Not found
+end
+
+
+local function hasTable(tbl, value)
+	for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
+		if (hasValue(v, value)) then 
+			firstRank = v[1]
+			return true -- Found in this or nested table
+		end
+	end
+	return false -- Not found
+end
+
 local who_aggro = function(self)
 	if (_detalhes.LastPullMsg or 0) + 30 > time() then
 		_detalhes.WhoAggroTimer = nil
@@ -466,29 +487,11 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 		{348,707,1094,2941,11665,11667,11668,25309,27215,47810,47811},--Immolate 
 		{8921,8924,8925,8926,8927,8928,8929,9833,9834,9835,26987,26988,48462,48463},--Moonfire 
 		{977832,977834,977835,977836,977837,977838,977839,977840,977841,977842,977843,977844,977845,977846},--Sunfire
-		{48567,33745,48568}--Lacerate (with rank 2 [level 73 spell] as the dot)
+		{48567,33745,48568},--Lacerate (with rank 2 [level 73 spell] as the dot)
+		{86462,86467,86490,86494,86499,86509,86512,86516,86520,86523,86526,86529,86532,86535,86538,86541}, -- Cauterizing Fire
+		{414030,414034} -- Fire Fire Fireball ( Fake Rank 1) 
 	}
 
-	local firstRank
-	function hasTable(tbl, value)
-		for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
-			if (hasValue(v, value)) then 
-				firstRank = v[1]
-				return true -- Found in this or nested table
-			end
-		end
-		return false -- Not found
-	end
-	
-	function hasValue(tbl, value)
-		for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
-			if v == value then 
-				return true -- Found in this or nested table
-			end
-		end
-		return false -- Not found
-	end
-	  
 	-- Damge over time fix
 	if hasTable(Dotspells, spellid) == true and token == "SPELL_PERIODIC_DAMAGE" then
 		spellid = firstRank
@@ -1383,6 +1386,11 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 	end
 
 	function parser:heal(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, spellid, spellname, spelltype, amount, overhealing, absorbed, critical, is_shield)
+	local Hotspells = {
+		{86464,86486,86491,86496,86501,86510,86513,86517,86521,86524,86527,86530,86533,86536,86539,86542}, --Cauterizing Fire 
+		{414030,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
+	}
+
 
 	------------------------------------------------------------------------------------------------
 	--> early checks and fixes
@@ -1416,6 +1424,12 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 		if(is_using_spellId_override) then
 			spellid = override_spellId[spellid] or spellid
 		end
+
+		-- Healing over time fix
+		if hasTable(Hotspells, spellid) == true and token == "SPELL_PERIODIC_HEAL" then
+			spellid = firstRank
+		end
+
 
 		--[[statistics]]-- _detalhes.statistics.heal_calls = _detalhes.statistics.heal_calls + 1
 		local cura_efetiva = absorbed
