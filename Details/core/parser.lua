@@ -1387,6 +1387,8 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 
 	function parser:heal(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, spellid, spellname, spelltype, amount, overhealing, absorbed, critical, is_shield)
 	local Hotspells = {
+		{61295,61299,61300,61301}, -- Riptide
+		{8936,8938,8939,8940,8941,9750,9856,9857,9858,26980,48442,48443}, -- Regrowth
 		{86464,86486,86491,86496,86501,86510,86513,86517,86521,86524,86527,86530,86533,86536,86539,86542}, --Cauterizing Fire 
 		{414030,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
 	}
