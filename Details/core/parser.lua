@@ -479,21 +479,44 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 	end
 
 	local Dotspells = {
-		{11366,12505,12522,12523,12524,12525,12526,18809,27132,33938,42890,42891},--, --Pyroblast
-		{133,143,145,3140,8400,8401,8402,10148,10149,10150,10151,25306,27070,38692,42832,42833}, --Fireball
-		{16805,17962}, --Conflagrate (with fake rank1)
-		{14914,15262,15263,15264,15265,15266,15267,15261,25384,48134,48135},--Holy Fire
-		{8050,8052,8053,10447,10448,29228,25457,49232,49233},--Flame Shock 
-		{348,707,1094,2941,11665,11667,11668,25309,27215,47810,47811},--Immolate 
-		{8921,8924,8925,8926,8927,8928,8929,9833,9834,9835,26987,26988,48462,48463},--Moonfire 
-		{977832,977834,977835,977836,977837,977838,977839,977840,977841,977842,977843,977844,977845,977846},--Sunfire
-		{48567,33745,48568},--Lacerate (with rank 2 [level 73 spell] as the dot)
-		{86462,86467,86490,86494,86499,86509,86512,86516,86520,86523,86526,86529,86532,86535,86538,86541}, -- Cauterizing Fire
-		{414030,414034} -- Fire Fire Fireball ( Fake Rank 1) 
+		-- First spellID will be reported as the DoT 
+
+		-- Pyroblast
+		{41578,11366,12505,12522,12523,12524,12525,12526,18809,27132,33938,42890,42891},
+		-- Fireball
+		{61567,133,143,145,3140,8400,8401,8402,10148,10149,10150,10151,25306,27070,38692,42832,42833},
+		-- Conflagrate (with fake rank1)
+		{16805,17962},
+		--Holy Fire
+		{18165,14914,15262,15263,15264,15265,15266,15267,15261,25384,48134,48135},
+		--Flame Shock 
+		{8050,8052,8053,10447,10448,29228,25457,49232,49233},
+		--Immolate 
+		{44518,348,707,1094,2941,11665,11667,11668,25309,27215,47810,47811},
+		--Elemental Immolation 
+		{978999,978668,979000,979001,979002,979003,979004,979005,979006,979007,979008},
+		--Moonfire 
+		{43545,8921,8924,8925,8926,8927,8928,8929,9833,9834,9835,26987,26988,48462,48463},
+		--Sunfire
+		{977831,977832,977834,977835,977836,977837,977838,977839,977840,977841,977842,977843,977844,977845,977846},
+		--Lacerate
+		{52504,300933,300934,300935,300936,300937,300938,300939,33745,48567,48568},
+		-- Cauterizing Fire
+		{86461,86462,86467,86490,86494,86499,86509,86512,86516,86520,86523,86526,86529,86532,86535,86538,86541},
+		-- Fire Fire Fireball ( Fake Rank 1) 
+		{414030,414034},
+		-- Flamestrike
+		{61568,2120,2121,8422,8423,10215,10216,27086,42925,42926},
+		-- Crimson Tempest
+		{954809,954883,954884,954885,954886,954887,954888,954889},
+		-- Flame Burst ( Harbinger of Flame)
+		{965511,983895},
+		-- Rake
+		{36332,1822,1823,1824,9904,27003,48573,48574}
 	}
 
 	-- Damge over time fix
-	if hasTable(Dotspells, spellid) == true and token == "SPELL_PERIODIC_DAMAGE" then
+	if not is_using_spellId_override and hasTable(Dotspells, spellid) == true and token == "SPELL_PERIODIC_DAMAGE" then
 		spellid = firstRank
 	end
 
@@ -1386,11 +1409,17 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 	end
 
 	function parser:heal(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, spellid, spellname, spelltype, amount, overhealing, absorbed, critical, is_shield)
-	local Hotspells = { -- The spell at first index will be reported as the HoT spell
+	
+		local Hotspells = {
+		-- First spellID will be reported as the HoT 
+		
 		{61295,300910,300911,300912,300913,300914,61295,61299,61300,61301}, -- Riptide
+		
 		{8936,8938,8939,8940,8941,9750,9856,9857,9858,26980,48442,48443}, -- Regrowth
-		{86464,86486,86491,86496,86501,86510,86513,86517,86521,86524,86527,86530,86533,86536,86539,86542}, --Cauterizing Fire 
-		{414030,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
+		
+		{86545,86464,86486,86491,86496,86501,86510,86513,86517,86521,86524,86527,86530,86533,86536,86539,86542}, --Cauterizing Fire
+		
+		{414029,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
 	}
 
 
@@ -1423,14 +1452,15 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 			return
 		end
 
+		-- Healing over time fix
+		if not is_using_spellId_override and hasTable(Hotspells, spellid) == true and token == "SPELL_PERIODIC_HEAL" then
+			spellid = firstRank
+		end
+
 		if(is_using_spellId_override) then
 			spellid = override_spellId[spellid] or spellid
 		end
 
-		-- Healing over time fix
-		if hasTable(Hotspells, spellid) == true and token == "SPELL_PERIODIC_HEAL" then
-			spellid = firstRank
-		end
 
 
 		--[[statistics]]-- _detalhes.statistics.heal_calls = _detalhes.statistics.heal_calls + 1
