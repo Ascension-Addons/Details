@@ -66,26 +66,137 @@ do
 
 		--> quais raides devem ser guardadas no hist�rico
 			_detalhes.InstancesToStoreData = { --> mapIDs
-				[867] = true, -- Zul'Aman
-				[863] = true, -- Serpentshrine Cavern
-				[866] = true, -- Magtheridon's Lair
-				[865] = true, -- Gruul's Lair
-				[868] = true, -- Karazhan
-				[862] = true, -- The Eye
+                -- Classic
+                [698] = true, -- Zul'Gurub
+                [697] = true, -- Molten Core
+                [719] = true, -- Onyxia's Lair
+                [756] = true, -- Blackwing Lair
+                [718] = true, -- Ahn'Qiraj Ruins
+                [767] = true, -- Ahn'Qiraj Temple
+                [536] = true, -- Naxxramas
 
-				[14] = true, -- Onyxia's Lair
-				[610] = true, -- The Ruby Sanctum
-				[605] = true, -- Icecrown Citadel
-				[544] = true, -- Trial of the Crusader
-				[536] = true, -- Naxxramas
-				[533] = true, -- Vault of Archavon
-				[532] = true, -- The Obsidian Sanctum
+                -- TBC
+                [800] = true, -- Karazhan
+				[777] = true, -- Gruul's Lair
+				[780] = true, -- Magtheridon's Lair
+				[781] = true, -- Serpentshrine Cavern
+				[783] = true, -- The Eye
+				[776] = true, -- Hyjal Summit
+				[775] = true, -- Black Temple
+				[789] = true, -- Sunwell Plateau
+
+                -- WotLK
 				[528] = true, -- The Eye of Eternity
+				[532] = true, -- The Obsidian Sanctum
+				[533] = true, -- Vault of Archavon
 				[530] = true, -- Ulduar
+				[544] = true, -- Trial of the Crusader
+				[605] = true, -- Icecrown Citadel
+				[610] = true, -- The Ruby Sanctum
 			}
 
 			--must fail in map and encounter id to not store data
 			_detalhes.EncountersToStoreData = { --> encounterIDs
+            -- Classic
+            -- Zul'Gurub
+                [14517] = 1, -- High Priestess Jeklik
+                [14507] = 2, -- High Priest Venoxis
+                [14510] = 3, -- High Priestess Mar'li
+                [11382] = 4, -- Bloodlord Mandokir
+                [15114] = 5, -- Gahz'ranka
+                [14509] = 6, -- High Priest Thekal
+                [14515] = 7, -- High Priestess Arlokk
+                [11380] = 8, -- Jin'do the Hexxer
+                [14834] = 9, -- Hakkar
+                [15082] = 10, -- Gri'lek
+                [15083] = 11, -- Hazza'rah
+                [15084] = 12, -- Renataki
+                [15085] = 13, -- Wushoolay
+ 			-- Molten Core
+                [12118] = 1, -- Lucifron
+                [11982] = 2, -- Magmadar
+                [12259] = 3, -- Gehennas
+				[12057] = 4, -- Garr
+                [12264] = 5, -- Shazzrah
+                [12056] = 6, -- Baron Geddon
+                [11988] = 7, -- Golemagg the Incinerator
+                [12098] = 8, -- Sulfuron Harbinger
+                [12018] = 9, -- Majordomo Executus
+                [11502] = 10, -- Ragnaros           
+            -- Onyxia's Lair
+                [10184] = 1, -- Onyxia
+            -- Blackwing Lair
+                [12435] = 1, -- Razorgore the Untamed
+                [13020] = 2, -- Vaelastrasz the Corrupt
+                [12017] = 3, -- Broodlord Lashlayer
+                [11981] = 4, -- Flamegor
+                [11983] = 5, -- Firemaw
+                [14601] = 6, -- Ebonroc
+                [14020] = 7, -- Chromaggus
+                [10162] = 8, -- Lord Victor Nefarius
+            -- Ahn'Qiraj Ruins
+                [15348] = 1, -- Kurinnaxx
+                [15341] = 2, -- General Rajaxx
+                [15340] = 3, -- Moam
+                [15370] = 4, -- Buru the Gorger
+                [15369] = 5, -- Ayamiss the Hunter
+                [15339] = 6, -- Ossirian the Unscarred
+            -- Ahn'Qiraj Temple
+                [15263] = 1, -- The Prophet Skeram
+                [15511] = 2, -- The Bug Family
+                [15516] = 3, -- Battleguard Sartura
+                [15510] = 4, -- Fankriss the Unyielding
+                [15299] = 5, -- Viscidus
+                [15509] = 6, -- Princess Huhuran
+                [15275] = 7, -- The Twin Emperors
+                [15517] = 8, -- Ouro
+                [15727] = 9, -- C'Thun
+            -- Naxxramas
+				[15956] = 1, -- Anub'Rekhan
+				[15953] = 2, -- Grand Widow Faerlina
+				[15952] = 3, -- Maexxna
+				[15954] = 4, -- Noth the Plaguebringer
+				[15936] = 5, -- Heigan the Unclean
+				[16011] = 6, -- Loatheb
+				[16061] = 7, -- Instructor Razuvious
+				[16060] = 8, -- Gothik the Harvester
+				[30549] = 9, -- The Four Horsemen
+				[16028] = 10, -- Patchwerk
+				[15931] = 11, -- Grobbulus
+				[15932] = 12, -- Gluth
+				[15928] = 13, -- Thaddius
+				[15989] = 14, -- Sapphiron
+				[15990] = 15, -- Kel'Thuzad
+
+            -- TBC
+			-- Karazhan
+                [34972] = 1, -- Attumen the Huntsman
+                [15687] = 2, -- Moroes
+                [16457] = 3, -- Maiden of Virtue
+                [1234567890] = 4, -- Opera
+                [15691] = 5, -- The Curator
+                [15688] = 6, -- Terestian Illhoof
+                [16524] = 7, -- Shade of Aran
+                [15689] = 8, -- Netherspite
+                [17225] = 9, -- Nightbane
+                [15690] = 10, -- Prince Malchezaar
+            -- Gruul's Lair
+				[18831] = 1, -- High King Maulgar
+				[19044] = 2, -- Gruul the Dragonkiller
+			-- Magtheridon's Lair
+                [17257] = 1, -- Magtheridon
+			-- Serpentshrine Cavern
+                [21216] = 1, -- Hydross the Unstable
+                [21217] = 2, -- The Lurker Below
+                [21215] = 3, -- Leotheras the Blind
+                [21214] = 4, -- Fathom-Lord Karathress
+                [21213] = 5, -- Morogrim Tidewalker
+                [21212] = 6, -- Lady Vashj
+            -- The Eye
+				[19514] = 1, -- Al'ar
+				[19516] = 2, -- Void Reaver
+				[18805] = 3, -- High Astromancer Solarian
+				[19622] = 4, -- Kael'thas Sunstrider
 			-- Zul'Aman
 				[23574] = 1, -- Akilzon
 				[23576] = 2, -- Nalorakk
@@ -93,34 +204,6 @@ do
 				[23577] = 4, -- Halazzi
 				[24239] = 5, -- Malacrass
 				[23863] = 6, -- ZulJin
-			-- Serpentshrine Cavern
-				[21216] = 1, -- Hydross the Unstable
-				[21217] = 2, -- The Lurker Below
-				[21215] = 3, -- Leotheras the Blind
-				[21214] = 4, -- Fathom-Lord Karathress
-				[21213] = 5, -- Morogrim Tidewalker
-				[21212] = 6, -- Lady Vashj
-			-- Magtheridon's Lair
-				[17257] = 1, -- Magtheridon
-			-- Gruul's Lair
-				[18831] = 1, -- High King Maulgar
-				[19044] = 2, -- Gruul the Dragonkiller
-			-- Karazhan
-				[34972] = 1, -- Attumen the Huntsman
-				[15687] = 2, -- Moroes
-				[16457] = 3, -- Maiden of Virtue
-				[1234567890] = 4,
-				[15691] = 5, -- The Curator
-				[15688] = 6, -- Terestian Illhoof
-				[16524] = 7, -- Shade of Aran
-				[15689] = 8, -- Netherspite
-				[17225] = 9, -- Nightbane
-				[15690] = 10, -- Prince Malchezaar
-			-- The Eye
-				[19514] = 1, -- Al'ar
-				[19516] = 2, -- Void Reaver
-				[18805] = 3, -- High Astromancer Solarian
-				[19622] = 4, -- Kael'thas Sunstrider
 			-- Hyjal Summit
 				[17767] = 1, -- Rage Winterchill
 				[17808] = 2, -- Anetheron
@@ -128,9 +211,19 @@ do
 				[17842] = 4, -- Azgalor
 				[17968] = 5, -- Archimonde
 				[92179] = 6, -- Chromius
-				
-			-- Onyxia's Lair
-				[10184] = 1, -- Onyxia
+			-- Black Temple
+				[22887] = 1, -- High Warlord Naj'entus
+				[22898] = 2, -- Supremus
+				[22841] = 3, -- Shade of Akama
+				[22871] = 4, -- Teron Gorefiend
+				[22948] = 5, -- Gurtogg Bloodboil
+				[23418] = 6, -- Reliquary of Soul
+				[22947] = 7, -- Mother Shahraz
+				[22949] = 8, -- The Illidari Council
+				[22917] = 9, -- Illidan Stormrage
+			-- Sunwell Plateau
+
+            -- WotLK
 			-- The Ruby Sanctum
 				[39863] = 1, -- Halion
 			-- Icecrown Citadel
@@ -155,22 +248,6 @@ do
 				[34451] = 3, -- Faction Champions
 				[34497] = 4, -- The Twin Val'kyr
 				[34564] = 5, -- Anub'arak
-			-- Naxxramas
-				[15956] = 1, -- Anub'Rekhan
-				[15953] = 2, -- Grand Widow Faerlina
-				[15952] = 3, -- Maexxna
-				[15954] = 4, -- Noth the Plaguebringer
-				[15936] = 5, -- Heigan the Unclean
-				[16011] = 6, -- Loatheb
-				[16061] = 7, -- Instructor Razuvious
-				[16060] = 8, -- Gothik the Harvester
-				[30549] = 9, -- The Four Horsemen
-				[16028] = 10, -- Patchwerk
-				[15931] = 11, -- Grobbulus
-				[15932] = 12, -- Gluth
-				[15928] = 13, -- Thaddius
-				[15989] = 14, -- Sapphiron
-				[15990] = 15, -- Kel'Thuzad
 			-- Vault of Archavon
 				[31125] = 1, -- Archavon
 				[33993] = 2, -- Emalon
