@@ -351,13 +351,16 @@
 
 --[[exported]]	function _detalhes:GameTooltipSetSpellByID (spellid)
 				if (spellid == 1) then
-					GameTooltip:SetSpellByID (6603)
+					-- GameTooltip:SetSpellByID (6603)
+					GameTooltip:SetHyperlink("|Hspell:"..(6603).."|h")
 				elseif (spellid == 2) then
-					GameTooltip:SetSpellByID (75)
+					-- GameTooltip:SetSpellByID (75)
+					GameTooltip:SetHyperlink("|Hspell:"..(75).."|h")
 				elseif (spellid > 10) then
-					GameTooltip:SetSpellByID (spellid)
+					-- GameTooltip:SetSpellByID (spellid)
+					GameTooltip:SetHyperlink("|Hspell:"..spellid.."|h")
 				else
-					GameTooltip:SetSpellByID (spellid)
+					GameTooltip:SetHyperlink("|Hspell:"..spellid.."|h")
 				end
 			end
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

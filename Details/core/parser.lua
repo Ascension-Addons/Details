@@ -159,6 +159,75 @@ local RAID_TARGET_FLAGS = {
 	[1] = true, --0x1 star
 }
 
+
+local function GetSpellRanks(spellID,maxLevel)
+	if not C_Spell or not C_Spell.GetMaxLearnableRank then return {} end
+	local lastID = 0
+	local RanksTable = {}
+   
+	for level =1 , maxLevel or 80 do
+		local spellID = C_Spell.GetMaxLearnableRank(spellID,level)
+		if spellID and lastID ~= spellID then
+			lastID = spellID
+			table.insert(RanksTable,spellID)        
+		end
+	end
+	return RanksTable
+end
+
+
+local Hotspells = {
+	-- First spellID will be reported as the HoT 
+	
+		{61295,unpack(GetSpellRanks(300910))}, -- Riptide
+		
+		{8936,unpack(GetSpellRanks(8938))}, -- Regrowth
+		
+		{86545,unpack(GetSpellRanks(86464))}, --Cauterizing Fire
+		
+		{414029,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
+	
+}
+
+local Dotspells = {
+	-- First spellID will be reported as the DoT 
+
+	
+	{61567,unpack(GetSpellRanks(11366))}, -- Pyroblast
+	
+	{61567,unpack(GetSpellRanks(133))}, -- Fireball
+	
+	{16805,unpack(GetSpellRanks(17962))}, -- Conflagrate (with fake rank1)
+	
+	{18165,unpack(GetSpellRanks(14914))}, --Holy Fire
+	
+	{8050,unpack(GetSpellRanks(8052))}, --Flame Shock 
+	
+	{44518,unpack(GetSpellRanks(348))}, --Immolate 
+	
+	{978999,unpack(GetSpellRanks(978668))}, --Elemental Immolation 
+	
+	{43545,unpack(GetSpellRanks(8921))}, --Moonfire 
+	
+	{977831,unpack(GetSpellRanks(977832))}, --Sunfire
+	
+	{52504,unpack(GetSpellRanks(300933))}, --Lacerate
+	
+	{86461,unpack(GetSpellRanks(86462))}, -- Cauterizing Fire
+	
+	{414030,414034}, -- Fire Fire Fireball ( Fake Rank 1) 
+	
+	{61568,unpack(GetSpellRanks(2120))}, -- Flamestrike
+	
+	{954809,unpack(GetSpellRanks(954883))}, -- Crimson Tempest
+	
+	{965511,983895}, -- Flame Burst ( Harbinger of Flame)
+	
+	{36332,unpack(GetSpellRanks(1822))}, -- Rake
+
+	GetSpellRanks(502730),  -- Primal Shred ( CoA Primalist )
+}
+
 --> spellIds override
 local override_spellId = {
 	[27576] = 5374, --rogue mutilate
@@ -478,42 +547,7 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 		end
 	end
 
-	local Dotspells = {
-		-- First spellID will be reported as the DoT 
 
-		-- Pyroblast
-		{41578,11366,12505,12522,12523,12524,12525,12526,18809,27132,33938,42890,42891},
-		-- Fireball
-		{61567,133,143,145,3140,8400,8401,8402,10148,10149,10150,10151,25306,27070,38692,42832,42833},
-		-- Conflagrate (with fake rank1)
-		{16805,17962},
-		--Holy Fire
-		{18165,14914,15262,15263,15264,15265,15266,15267,15261,25384,48134,48135},
-		--Flame Shock 
-		{8050,8052,8053,10447,10448,29228,25457,49232,49233},
-		--Immolate 
-		{44518,348,707,1094,2941,11665,11667,11668,25309,27215,47810,47811},
-		--Elemental Immolation 
-		{978999,978668,979000,979001,979002,979003,979004,979005,979006,979007,979008},
-		--Moonfire 
-		{43545,8921,8924,8925,8926,8927,8928,8929,9833,9834,9835,26987,26988,48462,48463},
-		--Sunfire
-		{977831,977832,977834,977835,977836,977837,977838,977839,977840,977841,977842,977843,977844,977845,977846},
-		--Lacerate
-		{52504,300933,300934,300935,300936,300937,300938,300939,33745,48567,48568},
-		-- Cauterizing Fire
-		{86461,86462,86467,86490,86494,86499,86509,86512,86516,86520,86523,86526,86529,86532,86535,86538,86541},
-		-- Fire Fire Fireball ( Fake Rank 1) 
-		{414030,414034},
-		-- Flamestrike
-		{61568,2120,2121,8422,8423,10215,10216,27086,42925,42926},
-		-- Crimson Tempest
-		{954809,954883,954884,954885,954886,954887,954888,954889},
-		-- Flame Burst ( Harbinger of Flame)
-		{965511,983895},
-		-- Rake
-		{36332,1822,1823,1824,9904,27003,48573,48574}
-	}
 
 	-- Damge over time fix
 	if not is_using_spellId_override and hasTable(Dotspells, spellid) == true and token == "SPELL_PERIODIC_DAMAGE" then
@@ -1414,17 +1448,7 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 
 	function parser:heal(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, spellid, spellname, spelltype, amount, overhealing, absorbed, critical, is_shield)
 	
-		local Hotspells = {
-		-- First spellID will be reported as the HoT 
-		
-		{61295,300910,300911,300912,300913,300914,61295,61299,61300,61301}, -- Riptide
-		
-		{8936,8938,8939,8940,8941,9750,9856,9857,9858,26980,48442,48443}, -- Regrowth
-		
-		{86545,86464,86486,86491,86496,86501,86510,86513,86517,86521,86524,86527,86530,86533,86536,86539,86542}, --Cauterizing Fire
-		
-		{414029,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
-	}
+
 
 
 	------------------------------------------------------------------------------------------------
