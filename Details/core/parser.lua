@@ -242,7 +242,7 @@ local spell_create_is_summon = {
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 function parser:swing(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, amount, overkill, school, resisted, blocked, absorbed, critical, glacing, crushing)
-	return parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, 1, "Corpo-a-Corpo", 00000001, amount, overkill, school, resisted, blocked, absorbed, critical, glacing, crushing) --> localize-me
+	return parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, 1, "Corpo-a-Corpo", school, amount, overkill, school, resisted, blocked, absorbed, critical, glacing, crushing) --> localize-me
 end
 
 function parser:range(token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, spellid, spellname, spelltype, amount, overkill, school, resisted, blocked, absorbed, critical, glacing, crushing)
@@ -848,6 +848,10 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 			if spellname and (_current_combat.is_boss and who_flags and _bit_band(who_flags, OBJECT_TYPE_ENEMY) ~= 0) then
 				_detalhes.spell_school_cache[spellname] = spelltype or school
 			end
+		end
+
+		if spell.spellschool ~= (spelltype or school) then
+			spell.spellschool = spelltype or school -- damage change REs can get cached as the wrong school type
 		end
 
 		if(_is_storing_cleu) then

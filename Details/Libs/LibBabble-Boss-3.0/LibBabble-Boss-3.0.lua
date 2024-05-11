@@ -120,6 +120,7 @@ lib:SetBaseTranslations {
 	["Chief Ukorz Sandscalp"] = "Chief Ukorz Sandscalp",
 	["Cho'Rush the Observer"] = "Cho'Rush the Observer",
 	Chromaggus = "Chromaggus",
+	Chromius = "Chromius",
 	["Chrono Lord Deja"] = "Chrono Lord Deja",
 	["Chrono-Lord Epoch"] = "Chrono-Lord Epoch",
 	Claw = "Claw",

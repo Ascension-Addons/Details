@@ -6162,15 +6162,11 @@ function window:CreateFrame4()
 			{value = [[Interface\AddOns\Details\images\classes]], label = Loc ["STRING_OPTIONS_BAR_ICONFILE5"], onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize},
 		}
 
-		if C_Realm:IsConquestOfAzeroth() then
-			if C_Realm:IsDevelopment() then
-				tinsert(list, {value = [[Interface\GLUES\CHARACTERCREATE\UI-CHARACTERCREATE-CLASSES-ROUND]], label = "Conquest of Azeroth", onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize}) 
-			else
-				list = {
-					{value = [[]], label = Loc ["STRING_OPTIONS_BAR_ICONFILE1"], onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize, iconcolor = {1, 1, 1, .3}},
-					{value = [[Interface\GLUES\CHARACTERCREATE\UI-CHARACTERCREATE-CLASSES-ROUND]], label = "Conquest of Azeroth", onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize}
-				}
-			end
+		if IsCustomClass() then
+			list = {
+				{value = [[]], label = Loc ["STRING_OPTIONS_BAR_ICONFILE1"], onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize, iconcolor = {1, 1, 1, .3}},
+				{value = [[Interface\GLUES\CHARACTERCREATE\UI-CHARACTERCREATE-CLASSES-ROUND]], label = "Conquest of Azeroth", onclick = OnSelectIconFile, icon = icontexture, texcoord = iconcoords, iconsize = iconsize}
+			}
 		end
 
 		local BuiltIconList = function()

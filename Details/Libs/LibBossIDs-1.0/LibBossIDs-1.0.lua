@@ -684,6 +684,7 @@ local BossIDs = {
 	[17888] = true, -- Kaz'rogal
 	[17842] = true, -- Azgalor
 	[17968] = true, -- Archimonde
+	[92179] = true, -- Chromius
 	
 	-- Black Temple
 	[22887] = true, -- High Warlord Naj'entus
