@@ -386,7 +386,7 @@
 			local nome_dele, dono_nome, dono_serial, dono_flag = _detalhes.tabela_pets:PegaDono (serial, nome, flag)
 
 			local dono_do_pet
-			if (nome_dele and dono_nome) then
+			if (nome_dele and dono_nome and dono_serial ~= serial) then
 				nome = nome_dele
 				dono_do_pet = self:PegarCombatente (dono_serial, dono_nome, dono_flag, true, nome)
 			end
@@ -469,7 +469,7 @@
 		end
 	end
 
-	function container_combatentes:PegarCombatente (serial, nome, flag, criar)
+	function container_combatentes:PegarCombatente (serial, nome, flag, criar, recurse)
 
 		--[[statistics]]-- _detalhes.statistics.container_calls = _detalhes.statistics.container_calls + 1
 
@@ -488,7 +488,10 @@
 			local nome_dele, dono_nome, dono_serial, dono_flag = _detalhes.tabela_pets:PegaDono (serial, nome, flag)
 			if (nome_dele and dono_nome and dono_serial ~= serial) then
 				nome = nome_dele
-				dono_do_pet = self:PegarCombatente (dono_serial, dono_nome, dono_flag, true)
+				if recurse then
+					return
+				end
+				dono_do_pet = self:PegarCombatente (dono_serial, dono_nome, dono_flag, true, true)
 			end
 
 		elseif (not pet_blacklist [serial]) then --> verifica se � um pet
