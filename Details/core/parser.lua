@@ -4121,7 +4121,7 @@ local check_for_encounter_end = function()
 	elseif IsInGroup() then
 		--party(dungeon)
 		local inCombat = false
-		for i = 1, GetNumGroupMembers() -1 do
+		for i = 1, GetNumGroupMembers() - 1 do
 			if UnitAffectingCombat("party" .. i) then
 				inCombat = true
 				break
@@ -4309,7 +4309,7 @@ function _detalhes.parser_functions:PLAYER_REGEN_ENABLED(...)
 			elseif IsInGroup() then
 				--party(dungeon)
 				local inCombat = false
-				for i = 1, GetNumGroupMembers() -1 do
+				for i = 1, GetNumGroupMembers() - 1 do
 					if(UnitAffectingCombat("party" .. i)) then
 						inCombat = true
 						break
@@ -4797,7 +4797,7 @@ function _detalhes:UptadeRaidMembersCache()
 
 	elseif _IsInGroup() then
 		--party
-		for i = 1, _GetNumGroupMembers() do
+		for i = 1, _GetNumGroupMembers() - 1 do
 			local name = _GetUnitName("party"..i, true)
 
 			raid_members_cache[_UnitGUID("party"..i)] = true

@@ -1316,7 +1316,7 @@ function _detalhes:CatchRaidDebuffUptime (in_or_out) -- "DEBUFF_UPTIME_IN"
 
 		local checked = {}
 
-		for raidIndex = 1, _GetNumGroupMembers() do
+		for raidIndex = 1, _GetNumGroupMembers() - 1 do
 			local his_target = _UnitGUID ("party"..raidIndex.."target")
 			local rect = UnitReaction ("party"..raidIndex.."target", "player")
 			if (his_target and not checked [his_target] and rect and rect <= 4) then
@@ -1452,7 +1452,7 @@ function _detalhes:CatchRaidBuffUptime (in_or_out)
 		local focus_augmentation = {}
 
 		--party members
-		for groupIndex = 1, _GetNumGroupMembers() do
+		for groupIndex = 1, _GetNumGroupMembers() - 1 do
 			for buffIndex = 1, 41 do
 				local name, _, _, _, _, _, _, unitCaster, _, _, spellid  = _UnitAura ("party"..groupIndex, buffIndex, nil, "HELPFUL")
 				if (name and unitCaster and UnitExists (unitCaster) and UnitExists ("party" .. groupIndex) and UnitIsUnit (unitCaster, "party" .. groupIndex)) then

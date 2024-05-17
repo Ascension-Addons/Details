@@ -1882,7 +1882,7 @@ inspect_frame:SetScript ("OnEvent", function (self, event, ...)
 			end
 		elseif (IsInGroup()) then
 			if (guid and type (guid) == "string") then
-				for i = 1, GetNumGroupMembers() do
+				for i = 1, GetNumGroupMembers() - 1 do
 					if (UnitGUID ("party" .. i) == guid) then
 						ilvl_core:ScheduleTimer ("CalcItemLevel", 2, {"party" .. i, guid})
 						ilvl_core:ScheduleTimer ("CalcItemLevel", 4, {"party" .. i, guid})
@@ -1938,6 +1938,10 @@ local NotifyInspectHook = function (unitid)
 		local guid = UnitGUID (unitid)
 		local name = _detalhes:GetCLName (unitid)
 		if (guid and name and not inspecting [guid]) then
+			local numGroupMembers = GetNumGroupMembers()
+			if unit == "party" then
+				numGroupMembers = numGroupMembers - 1
+			end
 			for i = 1, GetNumGroupMembers() do
 				if (name == _detalhes:GetCLName (unit .. i)) then
 					unitid = unit .. i

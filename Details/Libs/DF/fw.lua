@@ -538,7 +538,7 @@ function DF:GroupIterator (func, ...)
 		end
 
 	elseif (IsInGroup()) then
-		for i = 1, GetNumGroupMembers() do
+		for i = 1, GetNumGroupMembers() - 1 do
 			DF:QuickDispatch (func, "party" .. i, ...)
 		end
 
