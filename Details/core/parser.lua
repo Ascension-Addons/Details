@@ -160,72 +160,70 @@ local RAID_TARGET_FLAGS = {
 }
 
 
-local function GetSpellRanks(spellID,maxLevel)
-	if not C_Spell or not C_Spell.GetMaxLearnableRank then return {} end
-	local lastID = 0
-	local RanksTable = {}
-   
-	for level =1 , maxLevel or 80 do
-		local spellID = C_Spell.GetMaxLearnableRank(spellID,level)
-		if spellID and lastID ~= spellID then
-			lastID = spellID
-			table.insert(RanksTable,spellID)        
-		end
-	end
-	return RanksTable
-end
-
-
-local Hotspells = {
+ local Hotspells = {
 	-- First spellID will be reported as the HoT 
 	
-		{61295,unpack(GetSpellRanks(300910))}, -- Riptide
+		{61295,61295,300910,300911,300912,300913,300914,61299,61300,61301}, -- Riptide
 		
-		{8936,unpack(GetSpellRanks(8938))}, -- Regrowth
+		{8936,8936,8938,8939,8940,8941,9750,9856,9857,9858,26980,48442,48443}, -- Regrowth
 		
-		{86545,unpack(GetSpellRanks(86464))}, --Cauterizing Fire
+		{86545,86464}, --Cauterizing Fire
 		
 		{414029,300193} -- Fire Fire Fireheal  ( FAKE RANK 1)
 	
 }
 
-local Dotspells = {
+ local Dotspells = {
 	-- First spellID will be reported as the DoT 
 
 	
-	{61567,unpack(GetSpellRanks(11366))}, -- Pyroblast
+	{41578,11366,12505,12522,12523,12524,12525,12526,18809,27132,33938,42890,42891}, -- Pyroblast
+
+	{1590994,997700,997702,997703,997704,997705,997706,997707,997708,997709,997710,997711,997712}, -- Fuego
+	{1590994,276742,276752,276753,276754,276755,276756,276757,276758,276759,276760,276761,276762,}, -- Fuego (Elune)
+
+	{1590995,997701,997713,997714,997715,997716,997717,997718,997719,997720,997721,997722,997723}, -- Arctis
+	{1590995,276743,276763,276764,276765,276766,276767,276768,276769,276770,276771,276772,276773}, -- Arctis (Elune)
+
+	{61567,133,143,145,3140,8400,8401,8402,10148,10149,10150,25306,27070,38692,42832,42833}, -- Fireball
 	
-	{61567,unpack(GetSpellRanks(133))}, -- Fireball
+	{16805,17962}, -- Conflagrate (with fake rank1)
 	
-	{16805,unpack(GetSpellRanks(17962))}, -- Conflagrate (with fake rank1)
+	{14914,15262,15263,15264,15265,15266,15267,15261,25384,48134,48135}, --Holy Fire
+
+	{814914,815262,815263,815264,815265,815266,815267,815261,825384,848134,848135}, -- Holy Fire (Righteous Flames)
+	{270311,270313,270314,270315,270316,270317,270318,270312,270319,270320,270321}, -- Holy Fire (Righteous Flames) (Elune)
+
+	{1590539,1590541,1590542,1590543,1590544,1590545,1590546,1590547,1590548,1590549,1590550}, --Glacial Fire
+	{285869,285874,285875,285876,285877,285878,285879,285880,285881,285882,285883}, --Glacial Fire (Elune)
 	
-	{18165,unpack(GetSpellRanks(14914))}, --Holy Fire
+	{8050,8050,8052,8053,10447,10448,29228,25457,49232,49233}, --Flame Shock 
 	
-	{8050,unpack(GetSpellRanks(8052))}, --Flame Shock 
+	{44518,348,707,1094,2941,11665,11667,25309,27215,47810,47811}, --Immolate 
 	
-	{44518,unpack(GetSpellRanks(348))}, --Immolate 
+	{978668,978999,979000,979001,979002,979003,979005,979006,979007,979008}, --Elemental Immolation 
+	{274734,274756,274757,274758,274759,274760,274762,274763,274764,274765}, --Elemental Immolation (Elune)
+
+	{43545,8921,8924,8925,8926,8927,8928,8929,9833,9834,9835,26987,26988,48462,48463}, --Moonfire 
 	
-	{978999,unpack(GetSpellRanks(978668))}, --Elemental Immolation 
+	{977831,977832,977834,977835,977836,977837,977838,977839,977840,977841,977842,977843,977844,977845,977846}, --Sunfire
+	{283815,283816,283817,283818,283819,283820,283821,283822,283823,283824,283825,283826,283827,}, --Sunfire (Elune)
 	
-	{43545,unpack(GetSpellRanks(8921))}, --Moonfire 
+	{52504,33745,300933,300934,300935,300936,300937,300938,300939,48567,48568}, --Lacerate
 	
-	{977831,unpack(GetSpellRanks(977832))}, --Sunfire
-	
-	{52504,unpack(GetSpellRanks(300933))}, --Lacerate
-	
-	{86461,unpack(GetSpellRanks(86462))}, -- Cauterizing Fire
+	{86461,86462}, -- Cauterizing Fire
 	
 	{414030,414034}, -- Fire Fire Fireball ( Fake Rank 1) 
 	
-	{61568,unpack(GetSpellRanks(2120))}, -- Flamestrike
+	{61568,2120,2121,8422,8423,10215,10216,27086,42925,42926}, -- Flamestrike
 	
-	{954809,unpack(GetSpellRanks(954883))}, -- Crimson Tempest
+	{954809,954809,954883,954884,954885,954886,954887,954888,954889}, -- Crimson Tempest
 	
 	{965511,983895}, -- Flame Burst ( Harbinger of Flame)
 	
-	{36332,unpack(GetSpellRanks(1822))}, -- Rake
+	{36332,1822,1823,1824,9904,27003,48573,48574}, -- Rake
 
-	GetSpellRanks(502730),  -- Primal Shred ( CoA Primalist )
+	{500940,502726,502727,502728,502729,502730,502731,502732,502733,}  -- Primal Shred ( CoA Primalist )
 }
 
 --> spellIds override
@@ -326,7 +324,7 @@ end
 --	/run local f=CreateFrame("Frame");f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");f:SetScript("OnEvent",function(self, ...) local a = select(6, ...);if(a=="<chr name>")then print(...) end end)
 --	/run local f=CreateFrame("Frame");f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");f:SetScript("OnEvent",function(self, ...) local a = select(3, ...);print(a);if(a=="SPELL_CAST_SUCCESS")then print(...) end end)
 
-local firstRank
+-- local firstRank
 local function hasValue(tbl, value)
 	for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
 		if v == value then 
@@ -340,8 +338,8 @@ end
 local function hasTable(tbl, value)
 	for k, v in ipairs(tbl) do -- iterate table (for sequential tables only)
 		if (hasValue(v, value)) then 
-			firstRank = v[1]
-			return true -- Found in this or nested table
+			-- firstRank = v[1]
+			return v[1] -- Found in this or nested table, return first Rank
 		end
 	end
 	return false -- Not found
@@ -548,9 +546,9 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 	end
 
 
-
+	local firstRank =  hasTable(Dotspells, spellid) 
 	-- Damge over time fix
-	if not is_using_spellId_override and hasTable(Dotspells, spellid) == true and token == "SPELL_PERIODIC_DAMAGE" then
+	if not is_using_spellId_override and firstRank and token == "SPELL_PERIODIC_DAMAGE" then
 		spellid = firstRank
 	end
 
@@ -1479,9 +1477,9 @@ function parser:spell_dmg(token, time, who_serial, who_name, who_flags, alvo_ser
 		if(not alvo_name) then
 			return
 		end
-
+		local firstRank = hasTable(Hotspells, spellid)
 		-- Healing over time fix
-		if not is_using_spellId_override and hasTable(Hotspells, spellid) == true and token == "SPELL_PERIODIC_HEAL" then
+		if not is_using_spellId_override and  firstRank and token == "SPELL_PERIODIC_HEAL" then
 			spellid = firstRank
 		end
 
